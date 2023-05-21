@@ -1,0 +1,66 @@
+section .data
+msg1: db 'enter string:',10
+size1: equ $-msg1
+msg2 db 'length of the given string:'
+len2 equ $-msg2
+;cnt db 0
+
+section .bss
+string: resb 50
+temp: resb 1
+len: resb 1
+
+section .text
+
+global _start
+_start:
+mov eax,4
+mov ebx,1
+mov ecx,msg1
+mov edx,size1
+int 80h
+
+mov esi,string
+mov byte[len],0
+
+reading:
+mov eax,3
+mov ebx,0
+mov ecx,temp
+mov edx,1
+int 80h
+
+mov al,byte[temp]
+mov byte[esi],al
+
+inc byte[len]
+inc esi
+
+cmp byte[temp],10
+jnz reading
+
+dec esi
+dec byte[esi]
+dec byte[len]
+mov al,[len]
+cmp al,9
+jbe q1
+add al,07h
+q1:add al,30h
+mov byte[len],al
+mov eax,4
+mov ebx,1
+mov ecx,msg2
+mov edx,len2
+int 80h
+
+mov eax,4
+mov ebx,1
+mov ecx,len
+mov edx,1
+int 80h
+
+Exit:
+mov eax,1
+mov ebx,0
+int 80h
