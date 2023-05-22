@@ -60,29 +60,32 @@ void push(vector<patient *> &heap, int &n)
     }
 }
 
-void pop(vector<patient *> &heap, int &n)
+void popUtil(vector<patient*>&heap,int n,int i){
+    int largest = i;
+    int left = 2 * i;
+    int right = 2 * i + 1;
+    if (left < n && heap[left]->priority > heap[largest]->priority){
+        largest = left;
+    }
+    if (right < n && heap[right]->priority > heap[largest]->priority)
+    {
+        largest = right;
+    }
+    if(largest != i){
+        swap(heap, i, largest);
+        popUtil(heap, n, largest);
+    }
+}
+
+patient* pop(vector<patient *> &heap, int &n)
 {
     // int n = heap.size() - 1;
     patient *temp = heap[n];
-    heap[1] = heap[n];
+    heap.pop_back();
+    heap[1] = temp;
     n--;
-    int i = 1;
-    while (i < n)
-    {
-        int left = heap[2 * i]->priority;
-        int right = heap[2 * i + 1]->priority;
-        int larger = left > right ? 2*i : 2*i+1;
-        if (heap[i]->priority < heap[larger]->priority)
-        {
-            swap(heap[larger], heap[i]);
-            i = larger;
-        }
-        else
-        {
-            return;
-        }
-    }
-    // return temp;
+    popUtil(heap, n, 1);
+    return temp;
 }
 
 int main()
@@ -100,7 +103,8 @@ int main()
     {
         cout << heap[i]->name << endl;
     }
-   /*  patient*temp = */ pop(heap, n);
+    patient*temp = pop(heap, n);
+    cout << "----------------" << endl;
     for (int i{1}; i <= n; i++)
     {
         cout << heap[i]->name << endl;
