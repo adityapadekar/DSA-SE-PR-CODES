@@ -1,0 +1,52 @@
+Section .data
+ msg: db 'The largest number is:',10;
+ len: equ $-msg
+ arr: dd 1aaaaaa1h, 22h, 11h, 3abcdee3h, 444h
+ Segment .bss
+ count: resb 1
+ result: resb 15
+ Section .text
+ Global _start
+ _start:
+ Mov eax, 4
+ Mov ebx, 1
+ Mov ecx, msg
+ Mov edx, len
+ Int 80h
+ Mov byte [count], 5
+ Mov eax, 0
+ Mov esi, arr
+loop1:
+ Cmp eax, [esi]
+ Jnc next
+ Mov eax, [esi]
+next:
+ Add esi, 04
+ Dec byte [count]
+ Jnz loop1
+ Mov ebx, eax
+ Mov esi, result
+ Mov byte [count], 08
+ Mov cl, 04
+l1:
+ Rol ebx, cl
+ Mov dl, bl
+ And dl, 0fh
+ Cmp dl, 09h
+ Jbe l2
+ Add dl, 07h
+l2:
+ Add dl, 30h
+ Mov [esi], dl
+ Inc esi
+ Dec byte [count]
+ Jnz l1
+ Mov byte [esi], 0ah
+ Mov edx, 9
+ Mov ecx, result
+ Mov ebx, 1
+ Mov eax, 4
+ Int 80h
+ Mov eax, 1
+ Mov ebx, 0
+ Int 80h
