@@ -101,7 +101,7 @@ class hashTable:
                     
                 if isFound == False:
                     print("Record not found")
-                    return false
+                    return False
                         
                                
  

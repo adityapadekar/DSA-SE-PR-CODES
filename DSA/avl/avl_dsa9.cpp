@@ -46,7 +46,7 @@ node *rightRotate(node *root)
     mid->right = root;
     root->left = temp;
 
-    mid->height = max(height(root->left), height(root->right)) + 1;
+    mid->height = max(height(mid->left), height(mid->right)) + 1;
     root->height = max(height(root->left), height(root->right)) + 1;
 
     return mid;
@@ -61,7 +61,7 @@ node *leftRotate(node *root)
     mid->left = root;
     root->right = temp;
 
-    mid->height = max(height(root->left), height(root->right)) + 1;
+    mid->height = max(height(mid->left), height(mid->right)) + 1;
     root->height = max(height(root->left), height(root->right)) + 1;
 
     return mid;

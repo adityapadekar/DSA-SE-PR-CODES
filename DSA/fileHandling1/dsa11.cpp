@@ -11,13 +11,13 @@ If it is, then the system displays the student details. Use sequential file to m
 using namespace std;
 class student
 {
-    typedef struct stud
+    struct stud
     {
         int roll;
         char name[10];
         char div;
         char add[10];
-    } stud;
+    };
     stud rec;
 
 public:
