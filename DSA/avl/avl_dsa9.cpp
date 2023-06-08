@@ -95,7 +95,7 @@ node *insertNode(node *root, int key, string meaning)
     }
     if (balance > 1 && key > root->left->keyword)
     {
-        root->left = leftRotate(root);
+        root->left = leftRotate(root->left);
         return rightRotate(root);
     }
     if (balance < -1 && key > root->right->keyword)
@@ -104,7 +104,7 @@ node *insertNode(node *root, int key, string meaning)
     }
     if (balance < -1 && key < root->right->keyword)
     {
-        root->right = rightRotate(root);
+        root->right = rightRotate(root->right);
         return leftRotate(root);
     }
     // cout << "3" << endl;
