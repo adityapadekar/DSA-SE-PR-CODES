@@ -64,10 +64,10 @@ void popUtil(vector<patient*>&heap,int n,int i){
     int largest = i;
     int left = 2 * i;
     int right = 2 * i + 1;
-    if (left < n && heap[left]->priority > heap[largest]->priority){
+    if (left <= n && heap[left]->priority > heap[largest]->priority){
         largest = left;
     }
-    if (right < n && heap[right]->priority > heap[largest]->priority)
+    if (right <= n && heap[right]->priority > heap[largest]->priority)
     {
         largest = right;
     }
